@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditJournalViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class EditJournalViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var setTime: UIButton!
@@ -33,6 +33,7 @@ class EditJournalViewController: UIViewController, UITextViewDelegate, UIImagePi
         setTimer()
         lockLabel.text = "Lock On"
         imageButton.imageView?.contentMode = .scaleAspectFill
+        subjectText.delegate = self
 
         if let journal = journal{
             emojiLabel.text = journal.emoji
@@ -81,6 +82,11 @@ class EditJournalViewController: UIViewController, UITextViewDelegate, UIImagePi
         timeLabel.text = dateFormatter1.string(from: Date())
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        subjectText.resignFirstResponder()
+          return true
+    }
+    
     @IBAction func resetTime(_ sender: UIButton) {
         setTimer()
     }
